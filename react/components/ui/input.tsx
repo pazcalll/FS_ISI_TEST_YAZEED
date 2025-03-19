@@ -4,6 +4,7 @@ export type TInput = {
   label: string | undefined;
   value: any;
   placeholder: string | undefined;
+  onInput: (e: any) => void;
 };
 
 export default function Input({
@@ -12,6 +13,7 @@ export default function Input({
   value,
   placeholder,
   label,
+  onInput,
 }: TInput) {
   return (
     <div className="text-left">
@@ -23,6 +25,7 @@ export default function Input({
         className="w-full bg-white border border-solid border-gray-400 rounded-lg p-2"
         placeholder={placeholder}
         value={value}
+        onInput={(e) => onInput(e.target.value)}
       />
     </div>
   );

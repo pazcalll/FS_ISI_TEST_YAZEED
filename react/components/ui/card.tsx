@@ -1,4 +1,4 @@
-import { CircleIcon, CircleXIcon } from "lucide-react";
+import { CircleCheckIcon, CircleIcon, CircleXIcon } from "lucide-react";
 import moment from "moment";
 import type { TTodo } from "types/todo";
 
@@ -20,7 +20,11 @@ export default function Card({ todo }: TCard) {
           <CircleXIcon size={26} />
         </button>
         <button>
-          <CircleIcon size={26} fill="white" />
+          {todo.is_complete ? (
+            <CircleCheckIcon size={26} />
+          ) : (
+            <CircleIcon size={26} fill="white" />
+          )}
         </button>
       </div>
     </div>

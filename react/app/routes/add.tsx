@@ -5,12 +5,6 @@ import env from "env.json";
 import AddForm from "components/template/add-form";
 
 export default function Add() {
-  const todoInit: TTodo = {
-    id: 1,
-    title: "Buy milk",
-    is_complete: false,
-    created_at: "2021-10-10T10:00:00Z",
-  };
   const [todos, setTodos] = useState<TTodo[]>([]);
   useEffect(() => {
     const fetchTodos = async () => {
@@ -19,7 +13,8 @@ export default function Add() {
       setTodos(data);
     };
     fetchTodos();
-  });
+  }, []);
+
   return (
     <div className="w-full container mx-8 md:mx-auto">
       <div className="space-y-4 block mb-8">
@@ -30,7 +25,7 @@ export default function Add() {
       </div>
       <div className="space-y-4 flex justify-center flex-wrap">
         {todos.map((todo) => (
-          <Card todo={todo} />
+          <Card todo={todo} key={todo.id} />
         ))}
       </div>
     </div>
