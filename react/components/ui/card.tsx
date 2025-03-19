@@ -8,9 +8,15 @@ export type TCard = {
 
 export default function Card({ todo }: TCard) {
   return (
-    <div className="w-[50vw] max-w-[86vw] md:max-w-full p-4 bg-gray-300 rounded-lg shadow-lg flex justify-between">
+    <div className="sm:w-[50vw] max-w-[86vw] md:max-w-full p-4 bg-gray-300 rounded-lg shadow-lg flex justify-between">
       <div className="text-left">
-        <p>{todo.title}</p>
+        {todo.is_complete ? (
+          <s>
+            <p>{todo.title}</p>
+          </s>
+        ) : (
+          <p>{todo.title}</p>
+        )}
         <p>
           <small>{moment(todo.created_at).format("DD MMM YYYY HH:mm")}</small>
         </p>

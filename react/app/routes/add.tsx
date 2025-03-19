@@ -5,32 +5,52 @@ import env from "env.json";
 import AddForm from "components/template/add-form";
 
 export default function Add() {
-  const [todos, setTodos] = useState<TTodo[]>([]);
-  const fetchTodos = async () => {
-    const response = await fetch(env.BACKEND_URL + "/api");
+  const [completedTodos, setCompletedTodos] = useState<TTodo[]>([]);
+  const [incompleteTodos, setIncompleteTodos] = useState<TTodo[]>([]);
+  const fetchTodos = async (isComplete: number) => {
+    const response = await fetch(
+      env.BACKEND_URL + "/api/?is_complete=" + isComplete
+    );
     const data = await response.json();
-    setTodos(data);
+    isComplete <= 0 ? setIncompleteTodos(data) : setCompletedTodos(data);
   };
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+
+  const refillTodos = () => {
+    fetchTodos(0);
+    fetchTodos(1);
+  };
+
+  useEffect(refillTodos, []);
 
   return (
-    <div className="w-full container mx-8 md:mx-auto">
+    <div className="w-full container md:mx-auto">
       <div className="space-y-4 block mb-8">
         <h1 className="text-5xl text-center my-8">Task Management</h1>
         <div className="flex justify-center content-center mx-auto max-w-[50vw] flex-wrap">
           <AddForm
             callback={() => {
-              fetchTodos();
+              refillTodos();
             }}
           />
         </div>
       </div>
-      <div className="space-y-4 flex justify-center flex-wrap">
-        {todos.map((todo) => (
-          <Card todo={todo} key={todo.id} />
-        ))}
+      <div className="mx-8 sm:mx-0">
+        <div className="w-full mx-auto sm:max-w-[50vw]">
+          <h3 className="text-lg font-bold text-left">Ongoing Task</h3>
+          <div className="space-y-4 mx-auto sm:max-w-[50vw]">
+            {incompleteTodos.map((todo) => (
+              <Card todo={todo} key={todo.id} />
+            ))}
+          </div>
+        </div>
+        <div className="w-full mx-auto sm:max-w-[50vw] mt-4">
+          <h3 className="text-lg font-bold text-left">Completed Task</h3>
+          <div className="space-y-4 mx-auto sm:max-w-[50vw]">
+            {completedTodos.map((todo) => (
+              <Card todo={todo} key={todo.id} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
