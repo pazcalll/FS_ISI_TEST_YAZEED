@@ -20,6 +20,29 @@ export default function Add() {
     fetchTodos(1);
   };
 
+  const handleDelete = async (id: number) => {
+    const response = await fetch(env.BACKEND_URL + "/api/delete/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) refillTodos();
+    else alert("Failed to delete task");
+  };
+
+  const handleUpdate = async (id: number, isComplete: boolean) => {
+    const response = await fetch(env.BACKEND_URL + "/api/update/" + id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ is_complete: isComplete }),
+    });
+    if (response.ok) refillTodos();
+    else alert("Failed to complete task");
+  };
+
   useEffect(refillTodos, []);
 
   return (
@@ -39,7 +62,12 @@ export default function Add() {
           <h3 className="text-lg font-bold text-left">Ongoing Task</h3>
           <div className="space-y-4 mx-auto sm:max-w-[50vw]">
             {incompleteTodos.map((todo) => (
-              <Card todo={todo} key={todo.id} />
+              <Card
+                todo={todo}
+                key={todo.id}
+                handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
+              />
             ))}
           </div>
         </div>
@@ -47,7 +75,12 @@ export default function Add() {
           <h3 className="text-lg font-bold text-left">Completed Task</h3>
           <div className="space-y-4 mx-auto sm:max-w-[50vw]">
             {completedTodos.map((todo) => (
-              <Card todo={todo} key={todo.id} />
+              <Card
+                todo={todo}
+                key={todo.id}
+                handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
+              />
             ))}
           </div>
         </div>

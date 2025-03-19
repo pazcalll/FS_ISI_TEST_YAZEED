@@ -4,9 +4,11 @@ import type { TTodo } from "types/todo";
 
 export type TCard = {
   todo: Partial<TTodo>;
+  handleUpdate: (id: number, isComplete: boolean) => void;
+  handleDelete: (id: number) => void;
 };
 
-export default function Card({ todo }: TCard) {
+export default function Card({ todo, handleDelete, handleUpdate }: TCard) {
   return (
     <div className="sm:w-[50vw] max-w-[86vw] md:max-w-full p-4 bg-gray-300 rounded-lg shadow-lg flex justify-between">
       <div className="text-left">
@@ -22,10 +24,18 @@ export default function Card({ todo }: TCard) {
         </p>
       </div>
       <div className="text-right justify-center justify-items-center content-center place-content-center">
-        <button>
+        <button
+          onClick={() => handleDelete(todo.id as number)}
+          className="cursor-pointer"
+        >
           <CircleXIcon size={26} />
         </button>
-        <button>
+        <button
+          onClick={() =>
+            handleUpdate(todo.id as number, todo.is_complete ? false : true)
+          }
+          className="cursor-pointer"
+        >
           {todo.is_complete ? (
             <CircleCheckIcon size={26} />
           ) : (
