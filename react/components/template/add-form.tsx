@@ -2,7 +2,7 @@ import Input from "components/ui/input";
 import { useState } from "react";
 import env from "env.json";
 
-export default function AddForm() {
+export default function AddForm({ callback }: { callback?: () => void }) {
   const [title, setTitle] = useState("");
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,6 +16,8 @@ export default function AddForm() {
       },
       body: JSON.stringify({ title }),
     });
+
+    if (callback) callback();
   };
 
   return (

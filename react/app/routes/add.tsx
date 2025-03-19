@@ -6,12 +6,12 @@ import AddForm from "components/template/add-form";
 
 export default function Add() {
   const [todos, setTodos] = useState<TTodo[]>([]);
+  const fetchTodos = async () => {
+    const response = await fetch(env.BACKEND_URL + "/api");
+    const data = await response.json();
+    setTodos(data);
+  };
   useEffect(() => {
-    const fetchTodos = async () => {
-      const response = await fetch(env.BACKEND_URL + "/api");
-      const data = await response.json();
-      setTodos(data);
-    };
     fetchTodos();
   }, []);
 
@@ -20,7 +20,11 @@ export default function Add() {
       <div className="space-y-4 block mb-8">
         <h1 className="text-5xl text-center my-8">Task Management</h1>
         <div className="flex justify-center content-center mx-auto max-w-[50vw] flex-wrap">
-          <AddForm />
+          <AddForm
+            callback={() => {
+              fetchTodos();
+            }}
+          />
         </div>
       </div>
       <div className="space-y-4 flex justify-center flex-wrap">
