@@ -8,7 +8,7 @@ export type TCard = {
 
 export default function Card({ todo }: TCard) {
   return (
-    <div className="w-full p-4 bg-gray-300 rounded-lg shadow-lg flex justify-between">
+    <div className="w-[50vw] max-w-[86vw] md:max-w-full p-4 bg-gray-300 rounded-lg shadow-lg flex justify-between">
       <div className="text-left">
         <p>{todo.title}</p>
         <p>
