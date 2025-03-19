@@ -6,7 +6,11 @@ from crud.models import Todo
 
 @api_view(['GET'])
 def index(request):
-    todos = Todo.objects.all()
+    isComplete = request.GET.get('is_complete', None)
+    if isComplete != None:
+        todos = Todo.objects.filter(is_complete=isComplete)
+    else:
+        todos = Todo.objects.all()
     serializer = TodoSerializer(todos, many=True)
     return Response(serializer.data)
 
