@@ -1,0 +1,4 @@
+/todo/crud/__pycache__/
+/todo/crud/migrations/__pycache__/
+/todo/todo/__pycache__/
+/todo/db.sqlite3
