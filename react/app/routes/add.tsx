@@ -2,7 +2,7 @@ import Card from "components/ui/card";
 import { useEffect, useState } from "react";
 import type { TTodo } from "types/todo";
 import env from "env.json";
-import AddForm from "components/template/add-form";
+import AddForm from "components/organism/add-form";
 
 export default function Add() {
   const [completedTodos, setCompletedTodos] = useState<TTodo[]>([]);
