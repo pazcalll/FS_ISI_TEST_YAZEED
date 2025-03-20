@@ -59,7 +59,7 @@ export default function Add() {
       </div>
       <div className="mx-8 sm:mx-0">
         <div className="w-full mx-auto sm:max-w-[50vw]">
-          <h3 className="text-lg font-bold text-left">Ongoing Task</h3>
+          <h3 className="text-lg font-bold text-left mb-4">Ongoing Task</h3>
           <div className="space-y-4 mx-auto sm:max-w-[50vw]">
             {incompleteTodos.map((todo) => (
               <Card
@@ -72,7 +72,7 @@ export default function Add() {
           </div>
         </div>
         <div className="w-full mx-auto sm:max-w-[50vw] mt-4">
-          <h3 className="text-lg font-bold text-left">Completed Task</h3>
+          <h3 className="text-lg font-bold text-left mb-4">Completed Task</h3>
           <div className="space-y-4 mx-auto sm:max-w-[50vw]">
             {completedTodos.map((todo) => (
               <Card
