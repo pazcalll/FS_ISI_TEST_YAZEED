@@ -8,7 +8,11 @@ from crud.models import Todo
 def index(request):
     isComplete = request.GET.get('is_complete', None)
     if isComplete != None:
-        todos = Todo.objects.filter(is_complete=isComplete)
+        # todos = Todo.objects.filter(is_complete=isComplete)
+        if isComplete == '0':
+            todos = Todo.objects.filter(is_complete=isComplete).order_by('created_at')
+        elif isComplete == '1':
+            todos = Todo.objects.filter(is_complete=isComplete).order_by('-created_at')
     else:
         todos = Todo.objects.all()
     serializer = TodoSerializer(todos, many=True)
