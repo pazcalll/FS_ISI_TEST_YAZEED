@@ -14,6 +14,16 @@ def index(request):
     serializer = TodoSerializer(todos, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def show(request, id):
+    try:
+        todo = Todo.objects.get(id=id)
+    except Todo.DoesNotExist:
+        return Response({'error': 'Todo not found'}, status=404)
+
+    serializer = TodoSerializer(todo, many=False)
+    return Response(serializer.data)
+
 @api_view(['POST'])
 def addTodo(request):
     serializer = TodoSerializer(data=request.data)
