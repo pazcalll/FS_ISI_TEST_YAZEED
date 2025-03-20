@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: todos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  django:
+    build:
+      context: ./todo
+    volumes:
+      - ./todo:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: todos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: db
+
+  react:
+    build:
+      context: ./react
+    volumes:
+      - ./react:/app
+    ports:
+      - "3000:3000"
+    # environment:
+    #   BACKEND_URL: http://django:8000
+
+volumes:
+  postgres_data:
