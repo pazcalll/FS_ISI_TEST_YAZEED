@@ -1,9 +1,9 @@
 export type TInput = {
   name: string;
-  type: string | undefined;
-  label: string | undefined;
+  type?: string;
+  label?: string;
   value: any;
-  placeholder: string | undefined;
+  placeholder?: string;
   onInput: (e: any) => void;
 };
 

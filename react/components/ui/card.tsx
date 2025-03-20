@@ -1,5 +1,6 @@
-import { CircleCheckIcon, CircleIcon, CircleXIcon } from "lucide-react";
+import { CircleCheckIcon, CircleIcon, CircleXIcon, Pencil } from "lucide-react";
 import moment from "moment";
+import { useNavigate } from "react-router";
 import type { TTodo } from "types/todo";
 
 export type TCard = {
@@ -9,16 +10,24 @@ export type TCard = {
 };
 
 export default function Card({ todo, handleDelete, handleUpdate }: TCard) {
+  const navigate = useNavigate();
   return (
     <div className="sm:w-[50vw] max-w-[86vw] md:max-w-full p-4 bg-gray-300 rounded-lg shadow-lg flex justify-between">
       <div className="text-left">
-        {todo.is_complete ? (
-          <s>
+        <div className="flex">
+          {todo.is_complete ? (
+            <s>
+              <p>{todo.title}</p>
+            </s>
+          ) : (
             <p>{todo.title}</p>
-          </s>
-        ) : (
-          <p>{todo.title}</p>
-        )}
+          )}
+          <Pencil
+            size={20}
+            className="ml-2 cursor-pointer"
+            onClick={() => navigate("/edit/" + todo.id)}
+          />
+        </div>
         <p>
           <small>{moment(todo.created_at).format("DD MMM YYYY HH:mm")}</small>
         </p>
